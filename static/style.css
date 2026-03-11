@@ -1,0 +1,333 @@
+/* --- Variables de Color y Estilo --- */
+:root {
+    --bg-gradient: linear-gradient(135deg, #fdfbfb 0%, #f4e8ea 100%);
+    --card-bg: #ffffff;
+    --primary-color: #d4a5a5; /* Rosa empolvado / Mauve suave */
+    --primary-hover: #c49191;
+    --text-main: #4a4a4a;
+    --text-light: #888888;
+    --msg-own-bg: #ffe4e8; /* Rosa muy claro para mensajes propios */
+    --msg-other-bg: #f4f4f8; /* Gris perlado para otros mensajes */
+    --shadow: 0 10px 30px rgba(200, 160, 170, 0.15);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: var(--bg-gradient);
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centra verticalmente */
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--text-main);
+}
+
+/* --- Contenedores Principales --- */
+#login-container, #chat-container {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 500px; /* Un poco más estrecho para verse más elegante */
+    transition: all 0.3s ease;
+}
+
+h2 {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* --- Entradas y Botones --- */
+input[type="text"], input[type="password"], select {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+    background-color: #fafafa;
+}
+
+input:focus, select:focus {
+    border-color: var(--primary-color);
+    background-color: #fff;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* --- Área del Chat --- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.header button {
+    width: auto;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    background-color: #f0f0f0;
+    color: var(--text-main);
+}
+
+.header button:hover {
+    background-color: #e4e4e4;
+}
+
+#messages {
+    height: 450px;
+    overflow-y: auto;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    background: #fafafc;
+    display: flex;
+    flex-direction: column; /* Importante para alinear mensajes */
+    gap: 12px;
+    border: 1px solid #f0f0f0;
+}
+
+/* Ocultar barra de desplazamiento para un look más limpio (opcional) */
+#messages::-webkit-scrollbar { width: 6px; }
+#messages::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 10px; }
+
+/* --- Burbujas de Mensajes --- */
+.message {
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    background: var(--msg-other-bg);
+    position: relative;
+    align-self: flex-start; /* Alinea a la izquierda por defecto */
+    word-wrap: break-word;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.message.own {
+    background: var(--msg-own-bg);
+    align-self: flex-end; /* Alinea tus mensajes a la derecha */
+    border-bottom-right-radius: 4px; /* Efecto de burbuja de chat */
+}
+
+.message:not(.own) {
+    border-bottom-left-radius: 4px;
+}
+
+.message strong {
+    display: block;
+    font-size: 0.85em;
+    color: var(--primary-color);
+    margin-bottom: 3px;
+    font-weight: 600;
+}
+
+.message small {
+    display: block;
+    font-size: 0.7em;
+    color: var(--text-light);
+    margin-top: 5px;
+    text-align: right;
+}
+
+/* Estilo para mensajes borrados */
+.message.deleted {
+    background: transparent;
+    border: 1px dashed #dcaaaa;
+    color: #a0a0a0;
+    font-style: italic;
+    box-shadow: none;
+}
+
+.delete-btn {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    background: #ffb3b3;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-size: 0.7em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    opacity: 0; /* Oculto por defecto */
+    transition: opacity 0.2s;
+}
+
+.message:hover .delete-btn {
+    opacity: 1; /* Aparece al pasar el mouse por el mensaje */
+}
+
+.delete-btn:hover { background: #ff8080; }
+
+/* --- Input de Mensaje --- */
+.input-area {
+    display: flex;
+    gap: 10px;
+}
+
+.input-area input {
+    margin-bottom: 0;
+    border-radius: 20px;
+    background-color: #f4f4f8;
+    border: none;
+    padding-left: 20px;
+}
+
+.input-area button {
+    width: auto;
+    padding: 0 25px;
+    border-radius: 20px;
+}
+
+/* --- Panel Admin --- */
+#admin-panel {
+    background: #fffafa;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    border: 1px dashed var(--primary-color);
+}
+#admin-panel h3 {
+    color: var(--primary-color);
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+/* --- Wrapper del área de entrada (necesario para posicionar el picker) --- */
+.input-wrapper {
+    position: relative;
+}
+
+/* --- Botón de Emojis --- */
+#emoji-btn {
+    width: auto;
+    padding: 0 10px;
+    background-color: transparent;
+    font-size: 1.5rem;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#emoji-btn:hover {
+    transform: scale(1.15);
+    background-color: transparent;
+}
+
+/* --- Selector de emojis (web component) --- */
+.emoji-picker-container {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    z-index: 200;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* --- Botón de micrófono --- */
+#record-btn {
+    width: auto;
+    padding: 0 10px;
+    background-color: transparent;
+    font-size: 1.3rem;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+#record-btn:hover {
+    background-color: #f0e0e0;
+}
+
+#record-btn.recording {
+    background-color: #ffb3b3;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+/* Ajustamos el input para que se vea balanceado con el nuevo botón */
+.input-area {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* --- Audio en burbujas de chat --- */
+.message audio {
+    display: block;
+    margin-top: 6px;
+    width: 100%;
+    max-width: 260px;
+    border-radius: 8px;
+}
+
+/* Mensajes eliminados: badge para admin */
+.deleted-badge {
+    font-size: 0.7em;
+    background: #ffb3b3;
+    color: #7a0000;
+    border-radius: 6px;
+    padding: 1px 6px;
+    margin-left: 4px;
+    font-style: normal;
+    vertical-align: middle;
+}
+
+.deleted-text {
+    color: #a0a0a0;
+}

@@ -1,0 +1,14 @@
+{
+  "admin": {
+    "password": "adminpass",
+    "type_user": "admin"
+  },
+  "rachell": {
+    "password": "ra2403",
+    "type_user": "user"
+  },
+  "rouss": {
+    "password": "ro2403",
+    "type_user": "user"
+  }
+}

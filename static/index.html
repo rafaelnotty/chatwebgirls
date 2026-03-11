@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Global</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div id="login-container">
+        <h2>Iniciar Sesión</h2>
+        <input type="text" id="username" placeholder="Usuario">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button onclick="login()">Entrar</button>
+        <p id="login-error" style="color: red;"></p>
+    </div>
+
+    <div id="chat-container" style="display: none;">
+        <div class="header">
+            <h2>Sala Global - <span id="current-user-display"></span></h2>
+            <button onclick="logout()">Salir</button>
+        </div>
+        
+        <div id="admin-panel" style="display: none;">
+            <h3>Panel Admin</h3>
+            <input type="text" id="new-user" placeholder="Nuevo Usuario">
+            <input type="text" id="new-pass" placeholder="Contraseña">
+            <select id="new-type">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+            <button onclick="createUser()">Crear Usuario</button>
+            <br><br>
+            <input type="text" id="del-user" placeholder="Usuario a borrar">
+            <button onclick="deleteUser()">Borrar Usuario</button>
+        </div>
+
+        <div id="messages"></div>
+        
+        <div class="input-wrapper">
+            <div id="emoji-picker-container" class="emoji-picker-container" style="display:none;">
+                <emoji-picker></emoji-picker>
+            </div>
+            <div class="input-area">
+                <button id="emoji-btn" type="button">😊</button>
+                <input type="text" id="message-input" placeholder="Escribe un mensaje..." onkeypress="handleKeyPress(event)">
+                <button id="record-btn" type="button" title="Mantener para grabar audio">🎤</button>
+                <button onclick="sendMessage()">Enviar</button>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@1/index.js"></script>
+    <script src="/static/app.js"></script>
+</body>
+</html>
